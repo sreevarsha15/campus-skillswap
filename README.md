@@ -43,3 +43,13 @@ campus-skillswap/
 │   │   └── SessionRoom.jsx    # Live Jitsi video room, scratchpad & AI recap generator
 │   └── App.jsx                # Protected routing & auth session listener
 └── vite.config.js             # Vite + Tailwind CSS configuration
+```
+## Screenshots
+
+<img width="1535" height="863" alt="image" src="https://github.com/user-attachments/assets/b0d9fb31-bd73-4267-aa06-88c0dbb24014" />
+
+<img width="1535" height="863" alt="image" src="https://github.com/user-attachments/assets/8af466e8-1f27-4975-9e1a-3e531d0195ab" />
+
+<img width="1535" height="863" alt="image" src="https://github.com/user-attachments/assets/80714faa-09a2-4865-8fe6-0db5ec3e71a8" />
+
+<img width="1535" height="862" alt="image" src="https://github.com/user-attachments/assets/86319ea6-7f12-4218-ac14-795f1fe2164a" />
