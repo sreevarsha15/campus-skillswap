@@ -1,16 +1,45 @@
-# React + Vite
+# CampusSwap — Peer Skill-Swap & Micro-Tutoring Marketplace
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A zero-cost campus peer learning platform where college students exchange 30-minute 1-on-1 micro-tutoring sessions using a **Time-Credit barter system** instead of money.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Core Features
 
-## React Compiler
+- **Time-Credit Barter & Escrow System:** New accounts start with 2 welcome credits. Booking a session locks 1 Time-Credit in PostgreSQL escrow (`book_slot_with_escrow`) and automatically transfers it to the mentor once the session finishes (`complete_session_release_credit`).
+- **Mutual Skill Match Engine:** Automatically detects and highlights classmates who teach what you want to learn and want to learn what you teach.
+- **Conflict-Free Slot Locking:** Atomic PL/pgSQL RPC functions with row-level locking prevent two students from double-booking the same availability window.
+- **Embedded Live Classroom:** Built-in Jitsi Meet video rooms (`meet.jit.si`) with zero external downloads required.
+- **AI-Powered Study Recaps:** Collaborative session scratchpad integrated with the **Google Gemini API** to turn rough session notes into structured key concepts and practice action items.
+- **Verified Mentor Reputation:** Learners rate mentors after completed sessions (`submit_session_review`), dynamically updating average star ratings and unlocking a Verified Mentor badge after 3+ sessions taught.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the Oxlint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- **Frontend:** React, Vite, Tailwind CSS, React Router, Lucide Icons
+- **Backend & Database:** Supabase (PostgreSQL, Authentication, Row-Level Security, Atomic PL/pgSQL RPCs)
+- **Live Video & AI:** Jitsi Meet External API, Google Gemini Flash API
+
+---
+
+## Project Architecture
+
+```text
+campus-skillswap/
+├── index.html                 # Entry HTML with Jitsi Meet External API script
+├── src/
+│   ├── components/
+│   │   ├── BookingModal.jsx   # Slot picker & escrow confirmation modal
+│   │   └── Navbar.jsx         # Navigation header & live Time-Credit wallet badge
+│   ├── lib/
+│   │   ├── gemini.js          # Google Gemini API integration for study recaps
+│   │   └── supabase.js        # Supabase client initialization
+│   ├── pages/
+│   │   ├── AuthPage.jsx       # Campus sign-up & login (grants 2 welcome credits)
+│   │   ├── BookingsPage.jsx   # Upcoming/completed sessions & 5-star review modal
+│   │   ├── Marketplace.jsx    # Mentor discovery feed, search & Mutual Match filter
+│   │   ├── MyProfile.jsx      # Teach/Learn skill manager, slot publisher & credit ledger
+│   │   └── SessionRoom.jsx    # Live Jitsi video room, scratchpad & AI recap generator
+│   └── App.jsx                # Protected routing & auth session listener
+└── vite.config.js             # Vite + Tailwind CSS configuration
